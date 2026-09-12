@@ -2,6 +2,7 @@ package twoPointers;
 
 public class Demo1 {
 
+    // 移动零
     // https://leetcode.cn/problems/move-zeroes/
 
     public static void moveZeroes(int[] nums) {

@@ -2,37 +2,39 @@ package twoPointers;
 
 public class Demo2 {
 
+    // 复写零
     // https://leetcode.cn/problems/duplicate-zeros/description/
 
     public static void duplicateZeros(int[] arr) {
+
+        // 1. 先找到最后一个复写的元素
         int cur = 0;
         int dest = -1;
-        // 1. 先找到最后一个需要复写的数
-        while(cur < arr.length) {
-            if(arr[cur] == 0) {
-                dest += 2;
-            }else {
+        int n = arr.length;
+        while(cur < n) {
+            if(arr[cur] != 0) {
                 dest++;
+            }else {
+                dest += 2;
             }
-            if(dest >= arr.length - 1) {
+            if(dest >= n - 1) {
                 break;
             }
             cur++;
         }
-        // 2. 处理边界情况
-        if(dest == arr.length) {
-            arr[arr.length - 1] = 0;
-            cur--;
+        // 2. 处理特殊情况
+        if(dest == n) {
+            arr[dest - 1] = 0;
             dest -= 2;
+            cur--;
         }
-        // 3. 从后向前完成复写操作
+        // 3. 从后往前复写元素
         while(cur >= 0) {
             if(arr[cur] != 0) {
                 arr[dest--] = arr[cur--];
             }else {
-                arr[dest--] = 0;
-                arr[dest--] = 0;
-                cur--;
+                arr[dest--] = arr[cur];
+                arr[dest--] = arr[cur--];
             }
         }
 
@@ -41,9 +43,10 @@ public class Demo2 {
     public static void main(String[] args) {
 
         int[] arr = {1, 0, 2, 3, 0, 4, 5, 0};
-        duplicateZeros(arr);
-        for (int i = 0; i < arr.length; i++) {
-            System.out.print(arr[i] + " ");
+        int[] arr2 = {1, 0, 2, 3, 0, 4};
+        duplicateZeros(arr2);
+        for (int i = 0; i < arr2.length; i++) {
+            System.out.print(arr2[i] + " ");
         }
 
     }
